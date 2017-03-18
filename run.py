@@ -4,6 +4,9 @@ from deuces import (
     Evaluator
 )
 import pandas as pd
+import random
+
+random.seed(0)
 
 all_cards = [ Deck().draw(9) for x in range(100) ]
 df = pd.DataFrame({'all': all_cards})
