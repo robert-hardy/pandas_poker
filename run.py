@@ -8,7 +8,7 @@ import random
 
 random.seed(0)
 
-all_cards = [ Deck().draw(9) for x in range(100) ]
+all_cards = [ Deck().draw(9) for x in range(1000) ]
 df = pd.DataFrame({'all': all_cards})
 
 df['board'] = df['all'].apply(lambda x: x[:5])
