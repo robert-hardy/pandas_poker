@@ -5,7 +5,7 @@ from deuces import (
 )
 import pandas as pd
 
-all_cards = [ Deck().draw(9) for x in range(10) ]
+all_cards = [ Deck().draw(9) for x in range(100) ]
 df = pd.DataFrame({'all': all_cards})
 
 df['board'] = df['all'].apply(lambda x: x[:5])
