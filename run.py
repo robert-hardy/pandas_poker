@@ -38,3 +38,13 @@ df['winner'] = df.apply(lambda x: who_won(x['score1'], x['score2']), axis=1)
 draws, one, two = df.groupby('winner').count().iloc[:, 0].values
 
 print "Draws: {0}\nPlayer one: {1}\nPlayer two: {2}\n".format(draws, one, two)
+
+# What is the class of the winning hand?
+def what_won(row):
+    if row['winner'] == 0:
+        return row['class1_string']
+    if row['winner'] == 1:
+        return row['class1_string']
+    return row['class2_string']
+
+df['winning_class'] = df.apply(lambda x: what_won(x), axis=1)
