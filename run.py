@@ -14,6 +14,7 @@ df = pd.DataFrame({'all': all_cards})
 df['board'] = df['all'].apply(lambda x: x[:5])
 df['player1'] = df['all'].apply(lambda x: x[5:7])
 df['player2'] = df['all'].apply(lambda x: x[7:9])
+del df['all']
 
 evaluator = Evaluator()
 df['score1'] = df.apply(lambda x: evaluator.evaluate(x['board'], x['player1']), axis=1)
@@ -26,7 +27,7 @@ df['class2_string'] = df['class2'].apply(lambda x: evaluator.class_to_string(x))
 def who_won(x, y):
     if x == y:
         return 0
-    if x > y:
+    if x < y:
         return 1
     return 2
 
