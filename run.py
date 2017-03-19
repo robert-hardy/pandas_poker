@@ -40,11 +40,22 @@ draws, one, two = df.groupby('winner').count().iloc[:, 0].values
 print "Draws: {0}\nPlayer one: {1}\nPlayer two: {2}\n".format(draws, one, two)
 
 # What is the class of the winning hand?
-def what_won(row):
+def what_won_class(row):
     if row['winner'] == 0:
         return row['class1_string']
     if row['winner'] == 1:
         return row['class1_string']
     return row['class2_string']
 
-df['winning_class'] = df.apply(lambda x: what_won(x), axis=1)
+df['winning_class'] = df.apply(lambda x: what_won_class(x), axis=1)
+
+def what_won_score(row):
+    if row['winner'] == 0:
+        return row['score1']
+    if row['winner'] == 1:
+        return row['score1']
+    return row['score2']
+
+df['winning_score'] = df.apply(lambda x: what_won_score(x), axis=1)
+
+g = df.groupby('winning_class').mean().sort('winning_score')['winning_class']
