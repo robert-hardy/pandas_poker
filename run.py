@@ -58,4 +58,16 @@ def what_won_score(row):
 
 df['winning_score'] = df.apply(lambda x: what_won_score(x), axis=1)
 
-g = df.groupby('winning_class').mean().sort('winning_score')['winning_class']
+g = df.groupby('winning_class').mean().sort('winning_score')['winning_score']
+
+expected_g = """Four of a Kind,87.0
+Full House,246.744186047
+Flush,992.861538462
+Straight,1604.4375
+Three of a Kind,2076.92957746
+Two Pair,2862.03618421
+Pair,4521.02419355
+High Card,6503.14516129
+"""
+
+assert g.to_csv() == expected_g, "g is different from expected."
