@@ -58,7 +58,7 @@ def what_won_score(row):
 
 df['winning_score'] = df.apply(lambda x: what_won_score(x), axis=1)
 
-g = df.groupby('winning_class').mean().sort('winning_score')['winning_score']
+g = df.groupby('winning_class').mean().sort_values('winning_score')['winning_score']
 
 expected_g = """Four of a Kind,87.0
 Full House,246.744186047
