@@ -71,3 +71,9 @@ High Card,6503.14516129
 """
 
 assert g.to_csv() == expected_g, "g is different from expected."
+
+g_class = df.groupby('winning_class').count()[['winner']]
+
+foo = pd.concat([g, g_class], axis=1)
+foo = foo.sort_values('winning_score')[['winner']]
+foo.columns = ['count']
