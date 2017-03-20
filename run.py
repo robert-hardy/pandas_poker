@@ -79,3 +79,8 @@ g_class = df.groupby('winning_class').count()[['winner']]
 foo = pd.concat([g, g_class], axis=1)
 foo = foo.sort_values('winning_score')[['winner']]
 foo.columns = ['count']
+
+aggs = {'winning_score': ['count', 'mean']}
+bar = df.groupby('winning_class').agg(aggs)
+bar = bar.sort_values([('winning_score', 'mean')])
+bar = bar[[('winning_score', 'count')]]
