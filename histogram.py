@@ -30,6 +30,6 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 
-ax = df.plot()
+ax = df.plot.scatter(x='score1', y='score2')
 fig = ax.get_figure()
 fig.savefig('foo.png')
