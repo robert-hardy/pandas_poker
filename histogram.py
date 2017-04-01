@@ -30,3 +30,8 @@ all_scores = [ s for l in df[['score1', 'score2']].values.tolist() for s in l ]
 c = Counter([ round(x/100)*100 for x in all_scores ])
 foo = [ (k, v, evaluator.class_to_string(evaluator.get_rank_class(k)))
     for (k, v) in c.most_common(20) ]
+
+bar = [ evaluator.get_rank_class(s) for s in all_scores ]
+quux = [ (x, evaluator.class_to_string(x)) for x in bar ]
+string_counter = Counter(quux)
+string_counter.most_common(10)
