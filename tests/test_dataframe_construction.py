@@ -79,6 +79,13 @@ class TestScoring(unittest.TestCase):
         df_players = pd.concat(players, axis=1, keys=range(2))
         self.df_players = df_players.swaplevel(0, 1, axis=1)
 
-    def test_no_warning_on_join(self):
+    def test_valuation(self):
         player0 = self.df_players.xs(0, level=1, axis=1)
-        self.df_board.join(player0)
+        df = self.df_board.join(player0)
+        evaluator = Evaluator()
+        valuations = df.apply(lambda x: evaluator.evaluate(x['board'], x['player']), axis=1)
+        expected = [310, 2415, 5362, 4014, 2991]
+        self.assertEqual(
+            valuations.values.tolist(),
+            expected
+        )
