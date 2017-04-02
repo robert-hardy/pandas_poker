@@ -3,7 +3,6 @@ from deuces import (
     Card,
     Evaluator
 )
-from itertools import islice
 import pandas as pd
 import random
 
@@ -14,15 +13,11 @@ df_board = pd.DataFrame({
     'board': [ deck.draw(5) for deck in hand ]
 })
 
-random.seed(0)
-all_cards = [ Deck().draw(5 + 2*2) for x in range(5) ]
-s = pd.Series(all_cards)
-players = []
-for i in range(2):
-    i_start = 5 + 2*i
-    i_end = i_start + 2
-    df_player = (s.apply(
-        lambda x: list(islice(x, i_start, i_end))
-    )).to_frame('player')
-    players.append(df_player)
+players = [
+    pd.DataFrame({
+        'player': [ deck.draw(2) for deck in hand ]
+    })
+    for _ in range(2)
+]
 df_players = pd.concat(players, axis=1, keys=range(2))
+df_players = df_players.swaplevel(0, 1, axis=1)
