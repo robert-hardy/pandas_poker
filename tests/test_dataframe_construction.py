@@ -152,3 +152,13 @@ class TestJoiningPlayersAndScores(unittest.TestCase):
     def test_setup(self):
         self.assertEqual(len(self.df_players), 5)
         self.assertEqual(len(self.df_scores), 5)
+        df = self.df_players.join(self.df_scores)
+        self.assertEqual(len(df.columns.levels), 2)
+        self.assertEqual(
+            df.columns.get_level_values(0).tolist(),
+            ['player', 'player', 'score', 'score']
+        )
+        self.assertEqual(
+            df.columns.get_level_values(1).tolist(),
+            [0, 1, 0, 1]
+        )
