@@ -104,14 +104,19 @@ class TestScoring(unittest.TestCase):
         self.assertEqual(df.columns, ['score'])
 
 
-    @unittest.skip("for a moment.")
     def test_create_df_of_scores(self):
         evaluator = Evaluator()
-        scores = [
+        scores = pd.concat([
             self.df_board.join(self.df_players.xs(i, level=1, axis=1)).apply(
                 lambda x: evaluator.evaluate(x['board'], x['player']),
                 axis=1
-            )
+            ).to_frame('score')
             for i in self.df_players.columns.get_level_values(1)
-        ]
+        ], axis=1, keys=range(2))
+        scores = scores.swaplevel(0, 1, axis=1)
         self.assertEqual(len(scores), 5)
+        expected = [('score', 0), ('score', 1)]
+        self.assertEqual(
+            scores.columns.tolist(),
+            expected
+        )
