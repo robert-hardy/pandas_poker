@@ -9,15 +9,13 @@ import random
 
 
 random.seed(0)
-all_cards = [ Deck().draw(5 + 2*2) for x in range(5) ]
-hand = [ (i for i in hand) for hand in all_cards ]
+hand = [ Deck() for _ in range(5) ]
 df_board = pd.DataFrame({
-    'board': [
-        [cards.next() for _ in range(5)]
-        for cards in hand
-    ]
+    'board': [ deck.draw(5) for deck in hand ]
 })
 
+random.seed(0)
+all_cards = [ Deck().draw(5 + 2*2) for x in range(5) ]
 s = pd.Series(all_cards)
 players = []
 for i in range(2):
