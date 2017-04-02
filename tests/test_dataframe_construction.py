@@ -107,7 +107,10 @@ class TestScoring(unittest.TestCase):
     def test_create_df_of_scores(self):
         evaluator = Evaluator()
         scores = [
-            self.df_board.join(self.df_players.xs(0, level=i, axis=1))
+            self.df_board.join(self.df_players.xs(i, level=1, axis=1)).apply(
+                lambda x: evaluator.evaluate(x['board'], x['player']),
+                axis=1
+            )
             for i in self.df_players.columns.get_level_values(1)
         ]
         self.assertEqual(len(scores), 5)
