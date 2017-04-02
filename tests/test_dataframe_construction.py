@@ -95,12 +95,13 @@ class TestScoring(unittest.TestCase):
         df = self.df_board.join(self.df_players.xs(0, level=1, axis=1)).apply(
             lambda x: evaluator.evaluate(x['board'], x['player']),
             axis=1
-        )
-        expected = [310, 2415, 5362, 4014, 2991]
+        ).to_frame('score')
+        expected = [[310], [2415], [5362], [4014], [2991]]
         self.assertEqual(
             df.values.tolist(),
             expected
         )
+        self.assertEqual(df.columns, ['score'])
 
 
     @unittest.skip("for a moment.")
