@@ -20,8 +20,14 @@ class TestDFConstruction(unittest.TestCase):
                 for cards in hand
             ]
         })
-        self.assertEqual(len(df_board), len(self.all_cards))
+        expected = [
+            [[81922, 33560861, 139523, 16783383, 147715]],
+            [[16783383, 4212241, 295429, 69634, 81922]],
+            [[266757, 1082379, 134236965, 557831, 16787479]],
+            [[33564957, 8423187, 1065995, 33589533, 98306]],
+            [[16795671, 529159, 135427, 16783383, 266757]]
+        ]
         self.assertEqual(
-            df_board.iloc[0].values.tolist()[0],
-            self.all_cards[0][:5]
+            df_board.values.tolist(),
+            expected
         )
