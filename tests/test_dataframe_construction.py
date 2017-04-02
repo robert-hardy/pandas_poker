@@ -21,3 +21,7 @@ class TestDFConstruction(unittest.TestCase):
             ]
         })
         self.assertEqual(len(df_board), len(self.all_cards))
+        self.assertEqual(
+            df_board.iloc[0].values.tolist()[0],
+            self.all_cards[0][:5]
+        )
