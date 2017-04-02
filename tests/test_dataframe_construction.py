@@ -80,4 +80,5 @@ class TestScoring(unittest.TestCase):
         self.df_players = df_players.swaplevel(0, 1, axis=1)
 
     def test_no_warning_on_join(self):
-        self.df_board.join(self.df_players)
+        player0 = self.df_players.xs(0, level=1, axis=1)
+        self.df_board.join(player0)
