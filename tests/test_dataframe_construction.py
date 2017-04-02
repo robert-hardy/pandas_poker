@@ -1,15 +1,16 @@
 import unittest
 
 from deuces import (
-    Deck
+    Deck,
+    Evaluator
 )
 import pandas as pd
 import random
-random.seed(0)
 
 
 class TestDFConstruction(unittest.TestCase):
     def test_board(self):
+        random.seed(0)
         hand = [ Deck() for _ in range(5) ]
         df_board = pd.DataFrame({
             'board': [ deck.draw(5) for deck in hand ]
@@ -60,3 +61,23 @@ class TestDFConstruction(unittest.TestCase):
             df_board.values.tolist(),
             expected
         )
+
+class TestScoring(unittest.TestCase):
+    def setUp(self):
+        random.seed(0)
+        hand = [ Deck() for _ in range(5) ]
+        self.df_board = pd.DataFrame({
+            'board': [ deck.draw(5) for deck in hand ]
+        })
+
+        players = [
+            pd.DataFrame({
+                'player': [ deck.draw(2) for deck in hand ]
+            })
+            for _ in range(2)
+        ]
+        df_players = pd.concat(players, axis=1, keys=range(2))
+        self.df_players = df_players.swaplevel(0, 1, axis=1)
+
+    def test_no_warning_on_join(self):
+        self.df_board.join(self.df_players)
