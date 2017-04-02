@@ -90,6 +90,20 @@ class TestScoring(unittest.TestCase):
             expected
         )
 
+    def test_create_single_df_of_scores(self):
+        evaluator = Evaluator()
+        df = self.df_board.join(self.df_players.xs(0, level=1, axis=1)).apply(
+            lambda x: evaluator.evaluate(x['board'], x['player']),
+            axis=1
+        )
+        expected = [310, 2415, 5362, 4014, 2991]
+        self.assertEqual(
+            df.values.tolist(),
+            expected
+        )
+
+
+    @unittest.skip("for a moment.")
     def test_create_df_of_scores(self):
         evaluator = Evaluator()
         scores = [
