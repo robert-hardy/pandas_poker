@@ -120,3 +120,35 @@ class TestScoring(unittest.TestCase):
             scores.columns.tolist(),
             expected
         )
+
+
+class TestJoiningPlayersAndScores(unittest.TestCase):
+    def setUp(self):
+        random.seed(0)
+        hand = [ Deck() for _ in range(5) ]
+        self.df_board = pd.DataFrame({
+            'board': [ deck.draw(5) for deck in hand ]
+        })
+
+        players = [
+            pd.DataFrame({
+                'player': [ deck.draw(2) for deck in hand ]
+            })
+            for _ in range(2)
+        ]
+        df_players = pd.concat(players, axis=1, keys=range(2))
+        self.df_players = df_players.swaplevel(0, 1, axis=1)
+
+        evaluator = Evaluator()
+        df_scores = pd.concat([
+            self.df_board.join(self.df_players.xs(i, level=1, axis=1)).apply(
+                lambda x: evaluator.evaluate(x['board'], x['player']),
+                axis=1
+            ).to_frame('score')
+            for i in self.df_players.columns.get_level_values(1)
+        ], axis=1, keys=range(2))
+        self.df_scores = df_scores.swaplevel(0, 1, axis=1)
+
+    def test_setup(self):
+        self.assertEqual(len(self.df_players), 5)
+        self.assertEqual(len(self.df_scores), 5)
