@@ -33,6 +33,7 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 
+hands = df[(df.score1 > 3325) & (df.score2 > 3325) & (df.score3 > 3325)]
 ax = df.plot.scatter(x='score1', y='score2')
 df.plot.scatter(x='score1', y='score_min23', color='Red', marker='+', ax=ax)
 fig = ax.get_figure()
