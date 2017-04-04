@@ -9,5 +9,5 @@ _, _, df_scores = build_dataframe(
     nb_players=5
 )
 
-ax = pd.scatter_matrix(df_scores)
+ax = pd.scatter_matrix(df_scores, s=2)
 plt.savefig('scatter_matrix.png')
