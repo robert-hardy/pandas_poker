@@ -3,12 +3,15 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
+import random
 
+random.seed(0)
 _, _, df_scores = build_dataframe(
-    nb_hands=500,
+    nb_hands=1000,
     nb_players=5
 )
 
+df_scores.columns = df_scores.columns.get_level_values(1)
 ax = pd.scatter_matrix(df_scores, s=2)
 
 for i, row in enumerate(ax):
