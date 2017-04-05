@@ -23,7 +23,7 @@ df = pd.concat(
 )
 df.columns = df.columns.get_level_values(0)
 
-df['win'] = df[1] - df[0]
+df['win'] = df[2] - df[0]
 
 df.ix[df.win!=0, 'win'] = df.ix[df.win!=0, 'win'] / df.ix[df.win!=0, 'win'].abs()
 
