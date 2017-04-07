@@ -20,4 +20,7 @@ df = s.to_frame('score')
 
 LENGTH = len(df)
 df['pc'] = (1.0 + df.index)/LENGTH
-#df.remove_duplicates('score', take_last=True)
+df = df.remove_duplicates('score', take_last=True)
+df = df.set_index('score')
+df.plot()
+plt.savefig('score_to_pc.png')
