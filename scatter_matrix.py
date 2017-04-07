@@ -1,3 +1,4 @@
+from all_hands_to_scores import score_to_pc
 from dataframe_builder import build_dataframe
 import matplotlib
 matplotlib.use('Agg')
@@ -43,3 +44,12 @@ if __name__ == '__main__':
                 item.set_xlim(0, 8000)
                 item.set_ylim(0, 8000)
     plt.savefig('scatter_matrix_opponents.png')
+
+    df_pc = df_scores.applymap(score_to_pc)
+    ax = pd.scatter_matrix(df_pc, s=2)
+    for i, row in enumerate(ax):
+        for j, item in enumerate(row):
+            if i != j:
+                item.set_xlim(0, 1.0)
+                item.set_ylim(0, 1.0)
+    plt.savefig('scatter_matrix_of_pc.png')
