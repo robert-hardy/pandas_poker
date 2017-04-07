@@ -17,3 +17,6 @@ df_all = pd.DataFrame({
     'rank': all_ranks
 })
 df = df_all.groupby('rank').agg({'rank': 'count', 'score': [min, max]})
+df.columns = df.columns.get_level_values(1)
+df['width'] = df['max'] - df['min'] + 1
+df['ratio'] = df['count'] / df['width']
