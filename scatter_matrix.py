@@ -53,3 +53,12 @@ if __name__ == '__main__':
                 item.set_xlim(0, 1.0)
                 item.set_ylim(0, 1.0)
     plt.savefig('scatter_matrix_of_pc.png')
+
+    df_pc = df_scores.applymap(score_to_pc)
+    ax = pd.scatter_matrix(df_pc, s=2)
+    for i, row in enumerate(ax):
+        for j, item in enumerate(row):
+            if i != j:
+                item.set_xlim(0, 0.15)
+                item.set_ylim(0, 0.15)
+    plt.savefig('scatter_matrix_of_pc_zoom.png')
