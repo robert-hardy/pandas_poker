@@ -5,5 +5,5 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 df = build_dataframe(1000)
-pd.scatter_matrix(df)
+pd.scatter_matrix(df, s=3)
 plt.savefig('plots/scatter_matrix_2.png')
