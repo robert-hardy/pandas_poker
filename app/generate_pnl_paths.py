@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 df = build_dataframe(1000)
 
 pnl = df[1] - df[0]
-pnl.ix[pnl != 0] = pnl.ix[pnl != 0] / abs(pnl)
+pnl.ix[pnl != 0] = pnl / abs(pnl)
 pnl = pnl.cumsum()
 
 pnl.plot()
