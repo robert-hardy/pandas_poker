@@ -7,7 +7,7 @@ import random
 random.seed(0)
 
 
-decks = [ Deck() for _ in range(5) ]
+decks = [ Deck() for _ in range(1000) ]
 boards = [ deck.draw(5) for deck in decks ]
 player1 = [ deck.draw(2) for deck in decks ]
 player2 = [ deck.draw(2) for deck in decks ]
