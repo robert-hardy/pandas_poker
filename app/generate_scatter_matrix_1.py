@@ -1,4 +1,7 @@
 from deuces import Deck, Evaluator
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import pandas as pd
 import random
 random.seed(0)
@@ -16,3 +19,5 @@ scores = [
 ]
 
 df = pd.DataFrame(scores)
+pd.scatter_matrix(df)
+plt.savefig('plots/scatter_matrix_1.png')
