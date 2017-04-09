@@ -1,7 +1,6 @@
 from collections import Counter
 from deuces import (
     Deck,
-    Card,
     Evaluator
 )
 
